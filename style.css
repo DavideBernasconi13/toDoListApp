@@ -1,0 +1,98 @@
+/* Reset */
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', san-serif;
+}
+
+:root {
+    --primary-color: #002b3f;
+    --secondary-color: #97b4df;
+    --accent-color: #ff7300;
+    --contrast-color: #fff;
+    --text-color: #444;
+}
+
+/* general */
+.container {
+    width: 800px;
+    margin: 0 auto;
+}
+
+/* Header */
+#main-header {
+    background-color: var(--primary-color);
+    color: var(--contrast-color);
+    padding: 50px 0;
+}
+
+/* Insert task */
+#insertTask {
+    padding: 20px 0;
+    display: flex;
+    gap: 10px;
+}
+
+input {
+    width: 80%;
+    padding: 20px 14px;
+    border: none;
+    outline: none; 
+}
+
+#submit {
+    width: 20%;
+    background-color: var(--secondary-color);
+    text-transform: uppercase;
+    transition: .4s;
+}
+
+#submit:hover {
+    background-color: var(--accent-color);
+    color: var(--contrast-color);
+}
+
+/* task list */
+.taskList {
+    padding-top: 40px;
+}
+
+ol,
+li {
+    list-style-type: none;
+}
+
+li {
+    padding: 10px 0px;
+    border: 1px solid red;
+    border-bottom: 1px solid var(--text-color);
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.description {
+    width: 80%;
+}
+
+/* -------------------------------------------------------------------------------- */
+/* ! Media queries */
+/* -------------------------------------------------------------------------------- */
+@media (max-width: 992px) {
+    .container {
+        width: 100%;
+        padding: 0px 5%;
+    }
+}
+
+@media (max-width: 768px) {
+    #insertTask {
+        flex-wrap: wrap;
+    }
+
+    input,
+    #submit {
+        width: 100%;
+    }
+}

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple to do list</title>
+    <!-- Google font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+    <!-- Font awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- custom css -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header id="main-header">
+        <div class="container">
+            <h1 class="title">To do list</h1>
+            <!-- Update data with JS -->
+            <h4 class="date-today"></h4>
+            <form action="" id="insertTask">
+                <input class="taskInsert" type="text" placeholder="Insert a task" >
+                <input id="submit" type="submit" value="Inserisci task"></input>
+            </form>
+            <div class="error"></div>
+        </div>
+
+    </header>
+
+    <div class="container">
+        <section class="taskList">
+            <ol>
+                <li>
+                    <div class="description">Fare la spesa</div>
+                    <div class="updateBtn"><i class="fa fa-pencil" aria-hidden="true"></i></div>
+                    <div class="deleteBtn"><i class="fa fa-trash" aria-hidden="true"></i></div>
+                </li>
+            </ol>
+        </section>
+    </div>
+
+    <!-- Javascript -->
+    <script type="module" src="main.js"></script>
+</body>
+
+</html>
