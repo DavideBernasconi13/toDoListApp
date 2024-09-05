@@ -1,6 +1,9 @@
 const taskInput = document.querySelector(".task-input input");
 const taskBox = document.querySelector(".tasks-box");
 
+let editId;
+let isEditTask = false;
+
 
 //getting localeStorage
 let todos = JSON.parse(localStorage.getItem("todo-list"));
@@ -59,7 +62,8 @@ function showMenu(selectedTask) {
 /* ! Edit task */
 /* -------------------------------------------------------------------------------- */
 function editTask(taskId, taskName) {
-    console.log(taskId);
+    editId = taskId;
+    isEditTask = true;
     taskInput.value = taskName;
 }
 
@@ -101,9 +105,16 @@ function updateStatus(selectedTask) {
 taskInput.addEventListener("keyup", e => {
     let userTask = taskInput.value.trim();
     if (e.key == "Enter" && userTask) {
+        if (!isEditTask) {// se il task non è modificato
+            let taskInfo = { name: userTask, status: "pending" }; //crea il task 
+            todos.push(taskInfo); // add a task
+        } else {
+            isEditTask = false;
+            todos[editId].name = userTask;
+
+        }
         taskInput.value = ""; //pulisce il valore nell'input
-        let taskInfo = { name: userTask, status: "pending" }; //crea il task 
-        todos.push(taskInfo); // add a task
+
         localStorage.setItem("todo-list", JSON.stringify(todos)); //salva il task nel localStorage
         showTodo();
     }
