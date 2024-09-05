@@ -1,9 +1,10 @@
-const taskInput = document.querySelector(".task-input input");
-const taskBox = document.querySelector(".tasks-box");
+const taskInput = document.querySelector(".task-input input"),
+    filters = document.querySelectorAll(".filters span"),
+    clearBtn = document.querySelector(".clear-btn"),
+    taskBox = document.querySelector(".tasks-box");
 
 let editId;
 let isEditTask = false;
-
 
 //getting localeStorage
 let todos = JSON.parse(localStorage.getItem("todo-list"));
@@ -12,38 +13,54 @@ if (!todos) { //if todos don't exist, pass an empty array
 }
 
 /* -------------------------------------------------------------------------------- */
+/* ! Filters */
+/* -------------------------------------------------------------------------------- */
+filters.forEach(btn => {
+    btn.addEventListener("click", () => {
+        document.querySelector("span.active").classList.remove("active");
+        btn.classList.add("active");
+        showTodo(btn.id);
+    })
+})
+
+
+/* -------------------------------------------------------------------------------- */
 /* ! Show to do */
 /* -------------------------------------------------------------------------------- */
-function showTodo() {
+function showTodo(filter) {
     let li = ""; //create variable
     if (todos) {
         todos.forEach((todo, id) => {
             // se lo stato è completo metti il valore checked
             let isCompleted = todo.status == "completed" ? "checked" : "";
-            //Object literals with html code 
-            li += `<li class="task">
-        <label for="${id}">
-                    <input onclick="updateStatus(this)" type="checkbox" id="${id}">
-                    <p class= ${isCompleted}>${todo.name}</p>
-                </label>
-                <div class="settings">
-                    <i onclick="showMenu(this)" class="fa fa-ellipsis-h" aria-hidden="true"></i>
-                    <ul class="task-menu">
-                        <li onclick="editTask(${id}, '${todo.name}')"><i class="fa fa-pencil" aria-hidden="true"></i>Edit</li>
-                        <li onclick="deleteTask(${id})"><i class="fa fa-trash" aria-hidden="true"></i>Delete</li>
-                    </ul>
-                </div>
-                </li>`
+            if (filter == todo.status || filter == "all") {
+                //Object literals with html code 
+                li += `<li class="task">
+<label for="${id}">
+            <input onclick="updateStatus(this)" type="checkbox" id="${id}">
+            <p class= ${isCompleted}>${todo.name}</p>
+        </label>
+        <div class="settings">
+            <i onclick="showMenu(this)" class="fa fa-ellipsis-h" aria-hidden="true"></i>
+            <ul class="task-menu">
+                <li onclick="editTask(${id}, '${todo.name}')"><i class="fa fa-pencil" aria-hidden="true"></i>Edit</li>
+                <li onclick="deleteTask(${id})"><i class="fa fa-trash" aria-hidden="true"></i>Delete</li>
+            </ul>
+        </div>
+        </li>`
+            }
+
         });
     }
 
-    taskBox.innerHTML = li;
+    taskBox.innerHTML = li || `<span>Non ci sono task</span>`;
+
     if (todos.length === 0) {
         taskBox.innerHTML = `<h2>Non hai ancora nessun task, generane uno</h2>`
     }
 }
 
-showTodo();
+showTodo("all");
 
 /* -------------------------------------------------------------------------------- */
 /* ! Show menu task */
@@ -76,8 +93,20 @@ function deleteTask(deleteid) {
     //update localStorage
     localStorage.setItem("todo-list", JSON.stringify(todos));
     //aggiorna l'intefaccia
-    showTodo();
+    showTodo("all");
 }
+
+/* -------------------------------------------------------------------------------- */
+/* ! Delete all */
+/* -------------------------------------------------------------------------------- */
+clearBtn.addEventListener("click", () => {
+    //remove all item from array todos
+    todos.splice(0, todos.length);
+    //update localStorage
+    localStorage.setItem("todo-list", JSON.stringify(todos));
+    //aggiorna l'intefaccia
+    showTodo("all");
+})
 
 /* -------------------------------------------------------------------------------- */
 /* ! Update status */
@@ -116,7 +145,6 @@ taskInput.addEventListener("keyup", e => {
         taskInput.value = ""; //pulisce il valore nell'input
 
         localStorage.setItem("todo-list", JSON.stringify(todos)); //salva il task nel localStorage
-        showTodo();
+        showTodo("all");
     }
 })
-
