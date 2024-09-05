@@ -121,6 +121,11 @@ li {
     margin-right: 12px;
 }
 
+/* Status: checked */
+.checked {
+    text-decoration: line-through;
+}
+
 /* Task settings */
 .task .settings {
     cursor: pointer;
@@ -133,7 +138,7 @@ li {
     bottom: - 65px;
     transform: scale(0);
     transition: transform 0.2s ease;
-    transform-origin: top right;
+    transform-origin: top ri;
     background-color: var(--contrast-color);
     padding: 5px 0;
     box-shadow: 0 0 6px rgba(0, 0, 0, .15);
@@ -141,7 +146,7 @@ li {
     z-index: 2;
 }
 
-.settings:hover .task-menu {
+.settings .task-menu.show {
     transform: scale(1);
 }
 
